@@ -1,0 +1,11 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  var _reactNative = _require(_dependencyMap[0]);
+
+  var _App = _require(_dependencyMap[1]);
+
+  var _App2 = babelHelpers.interopRequireDefault(_App);
+
+  _reactNative.AppRegistry.registerComponent('platziVideoApp', function () {
+    return _App2.default;
+  });
+});
