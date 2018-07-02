@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { PersistGate } from 'redux-persist/integration/react'
 import {
   Text,
 } from 'react-native';
@@ -10,7 +11,7 @@ import CategoryList from './src/videos/containers/category-list'
 import Player from './src/player/container/player'
 import API from './src/utils/api'
 import { Provider } from 'react-redux'
-import store from './store'
+import { store, persistor } from './store'
 
 export default class App extends Component {
   // state = {
@@ -39,13 +40,15 @@ export default class App extends Component {
       <Provider
         store={store}
       >
-        <Home>
-          <Header />
-          <Player />
-          <Text>buscador</Text>
-          <CategoryList />
-          <SuggestionList />
-        </Home>
+        <PersistGate loading={<Text>Cargando...</Text>} persistor={persistor}>
+          <Home>
+            <Header />
+            <Player />
+            <Text>buscador</Text>
+            <CategoryList />
+            <SuggestionList />
+          </Home>
+        </PersistGate>
       </Provider>
     )
   }
