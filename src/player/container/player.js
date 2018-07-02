@@ -8,11 +8,15 @@ import {
 import Layout from '../components/layout'
 import ControlLayout from '../components/control-layout'
 import PlayPause from '../components/play-pause'
+import ProgressBar from '../components/progress-bar'
 
 class Player extends Component {
   state = {
     loading: true,
-    paused: false
+    paused: false,
+    playableDuration: 0,
+    currentTime: 0,
+    seekableDuration: 0
   }
   onBuffer = ({ isBuffering }) => {
     this.setState({
@@ -23,6 +27,22 @@ class Player extends Component {
   playPause = () => {
     this.setState((state) => {
       return {paused: !state.paused}
+    })
+  }
+
+  handleVideoProgress = ({currentTime, playableDuration, seekableDuration}) => {
+    this.setState({
+      currentTime,
+      playableDuration,
+      seekableDuration
+    })
+  }
+
+  handleVideoSeek = (value) => {
+    console.log(value)
+    this.video.seek(value)
+    this.setState({
+      currentTime: value
     })
   }
 
@@ -37,6 +57,10 @@ class Player extends Component {
             resizeMode="contain"
             onBuffer={this.onBuffer}
             paused={this.state.paused}
+            onProgress={this.handleVideoProgress}
+            ref={(ref) => {
+              this.video = ref
+            }}   
           />
         }
         loader={
@@ -48,7 +72,11 @@ class Player extends Component {
               paused={this.state.paused}
               onPress={this.playPause}
             />
-            <Text>Progress bar</Text>
+            <ProgressBar
+              onValueChange={this.handleVideoSeek}
+              currentTime={this.state.currentTime}
+              duration={this.state.seekableDuration}
+            />
             <Text>time left</Text>
             <Text>fullscreen</Text>
           </ControlLayout>

@@ -12,7 +12,7 @@ const controlLayout = (props) => (
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'rgba(255,255,255,.3)',
+    backgroundColor: 'rgba(0,0,0,.7)',
     position: 'absolute',
     left: 0,
     right: 0,

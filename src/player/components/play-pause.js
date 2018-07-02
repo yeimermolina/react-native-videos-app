@@ -1,4 +1,5 @@
 import React from 'react'
+import Icon from '../../icons/index'
 import {
   TouchableHighlight,
   TouchableOpacity,
@@ -11,7 +12,7 @@ const playPause = (props) => (
   <TouchableHighlight
     onPress={props.onPress}
     style={styles.container}
-    underlayColor='green'
+    underlayColor='transparent'
     hitSlop={{
       left: 5,
       top: 5,
@@ -21,8 +22,8 @@ const playPause = (props) => (
   >
     {
       props.paused
-        ? <Text style={styles.button}>Play</Text>
-        : <Text style={styles.button}>Pause</Text>
+        ? <Icon iconName='play-circle-outline' />
+        : <Icon iconName='pause-circle-outline' />
     }
     
   </TouchableHighlight>
@@ -40,10 +41,7 @@ const styles = StyleSheet.create({
     height: 25,
     marginRight: 10,
     marginVertical: 5,
-    borderWidth: 1,
-    borderRadius: 10,
-    borderColor: 'white',
-    backgroundColor: 'gray',
+    borderColor: 'white'
   }
 })
 
