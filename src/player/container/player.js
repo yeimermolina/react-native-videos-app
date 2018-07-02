@@ -3,20 +3,24 @@ import Video from 'react-native-video';
 import {
   StyleSheet,
   ActivityIndicator,
-  Text
 } from 'react-native'
 import Layout from '../components/layout'
 import ControlLayout from '../components/control-layout'
 import PlayPause from '../components/play-pause'
 import ProgressBar from '../components/progress-bar'
+import Time from '../components/time'
+import FullScreen from '../components/full-screen'
 
+// TODO improve fullscreen
+// TODO add volume functionality
 class Player extends Component {
   state = {
     loading: true,
     paused: false,
     playableDuration: 0,
     currentTime: 0,
-    seekableDuration: 0
+    seekableDuration: 0,
+    fullScreen: false
   }
   onBuffer = ({ isBuffering }) => {
     this.setState({
@@ -39,11 +43,18 @@ class Player extends Component {
   }
 
   handleVideoSeek = (value) => {
-    console.log(value)
     this.video.seek(value)
     this.setState({
       currentTime: value
     })
+  }
+  
+  handleFullScreen = () => {
+    if (this.state.fullScreen) {
+      this.video.dismissFullscreenPlayer()
+    } else {
+      this.video.presentFullscreenPlayer()
+    }
   }
 
   render () {
@@ -60,7 +71,8 @@ class Player extends Component {
             onProgress={this.handleVideoProgress}
             ref={(ref) => {
               this.video = ref
-            }}   
+            }}
+            onFullscreenPlayerWillDismiss={this.fullScreenPlayerWillDismiss}
           />
         }
         loader={
@@ -77,8 +89,13 @@ class Player extends Component {
               currentTime={this.state.currentTime}
               duration={this.state.seekableDuration}
             />
-            <Text>time left</Text>
-            <Text>fullscreen</Text>
+            <Time 
+              currentTime={this.state.currentTime}
+              duration={this.state.seekableDuration}
+            />
+            <FullScreen 
+              onPress={this.handleFullScreen}
+            />
           </ControlLayout>
         }
       />
