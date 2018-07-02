@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import {
   FlatList,
-  Text
 } from 'react-native'
 import Layout from '../components/suggestion-list-layout'
 import Empty from '../components/empty'
@@ -36,4 +36,8 @@ class SuggestionList extends Component {
   }
 }
 
-export default SuggestionList
+const mapStateToProps= (state) => ({
+  list: state.suggestionList
+})
+
+export default connect(mapStateToProps)(SuggestionList)

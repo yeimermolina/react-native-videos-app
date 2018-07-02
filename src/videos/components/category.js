@@ -15,7 +15,7 @@ const category = (props) => (
   >
     <Text
       style={styles.genre}
-    >{props.genres[0]}</Text>
+    >{props.genres? props.genres[0] : 'test' }</Text>
   </ImageBackground>
 )
 

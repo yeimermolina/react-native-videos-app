@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import {
   View,
   FlatList
@@ -40,4 +41,8 @@ class CategoryList extends Component {
   }
 }
 
-export default CategoryList
+const mapStateToProps= (state) => ({
+  list: state.categoryList
+})
+
+export default connect(mapStateToProps)(CategoryList)
